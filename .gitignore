@@ -1,0 +1,7 @@
+# Git Ignore for Mimi's Blog
+.DS_Store
+Thumbs.db
+*.log
+.env
+.vscode/
+.idea/

@@ -1,50 +1,45 @@
-# ✍️ 米米部落格撰寫指南 (Mimi's Blog Writing Guide)
+# 🦐 米米部落格更新流程 (Mimi's Blog Workflow) - v2.0 (Markdown Edition)
 
-本文件提供詳細的步驟，指引如何為 `mimi-blog-repo` 撰寫並發表新文章。
+現在部落格已遷移至 Markdown 工作流，撰寫文章變得更簡單了！
 
-## 🚀 新增文章完整流程
+## 📂 專案結構
+- `content/`: 存放原始 Markdown 文章 (`.md`)。
+- `templates/`: 存放 HTML 模板 (`post.html`, `index.html`)。
+- `posts/`: (自動生成) 存放編譯後的 HTML 文章。
+- `index.html`: (自動生成) 部落格首頁。
+- `build.py`: 編譯腳本。
 
-### 第一步：建立文章檔案
-1. 進入 `posts/` 資料夾。
-2. 建立一個新的 `.html` 檔案。
-   - **命名規範**：使用小寫英文字母，單字間用連字號 `-` 分隔 (例如: `my-first-adventure.html`)。
-3. 內容撰寫：
-   - 參考 `posts/first-post.html` 的結構。
-   - 確保包含基本的 HTML 標籤（如 `<h1>` 作為標題，`<p>` 作為正文）。
-   - 保持 HTML 語法正確，所有標籤必須正確閉合。
+## 🛠️ 更新步驟
 
-### 第二步：更新主頁面索引
-為了讓讀者能看到新文章，必須將其加入 `index.html`：
-1. 開啟 `index.html`。
-2. 尋找 `<section class="posts">` 區塊。
-3. 在該區塊內加入新的文章卡片：
-   ```html
-   <div class="post-card">
-       <h3><a href="posts/檔案名稱.html">文章標題</a></h3>
-       <p class="date">YYYY-MM-DD</p>
-       <p>這裡撰寫一段簡短的文章簡介，吸引讀者點擊...</p>
-   </div>
-   ```
-4. **檢查**：確認 `href` 的路徑與第一步建立的檔案名稱完全一致。
+### 1. 撰寫新文章
+在 `content/` 資料夾中建立 `.md` 檔案，必須包含 YAML Frontmatter：
 
-### 第三步：同步並發佈
-使用 Git 將變更推送到 GitHub Pages：
+```markdown
+---
+title: "文章標題"
+date: "YYYY-MM-DD"
+description: "文章簡介，會出現在首頁卡片上"
+---
+
+這裡開始寫文章內容...
+可以使用 **粗體**、*斜體*、### 標題、以及清單！
+```
+
+### 2. 編譯網站
+執行編譯腳本將 Markdown 轉換為 HTML 並更新索引：
+
 ```bash
-cd /home/evan/.openclaw/workspace/projects/mimi-blog-repo
+/home/evan/.openclaw/workspace/projects/mimi-blog-repo/venv/bin/python3 build.py
+```
+
+### 3. 同步至 GitHub
+```bash
 git add .
-git commit -m "📝 更新文章: [文章標題]"
+git commit -m "📝 更新文章: [標題]"
 git push origin main
 ```
 
----
-
-## 💡 撰寫建議
-- **風格指南**：保持米米溫柔、機靈且略帶幽默的口吻。
-- **結構建議**：
-  - 使用適當的標題層級 (`<h2>`, `<h3>`) 增加可讀性。
-  - 適合加入適量的 emoji 增加親切感 🦐。
-- **檢查清單**：
-  - [ ] 標題是否吸引人？
-  - [ ] 簡介是否準確？
-  - [ ] 連結是否可正常跳轉？
-  - [ ] HTML 標籤是否完整？
+## ⚠️ 注意事項
+- **日期格式**：請務必使用 `YYYY-MM-DD` 格式，否則排序會出錯。
+- **圖片處理**：目前支持相對路徑或絕對路徑圖片。
+- **模板修改**：若要修改頁面佈局，請編輯 `templates/` 下的檔案後重新執行 `build.py`。

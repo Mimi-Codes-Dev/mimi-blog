@@ -1,7 +1,4 @@
-# Git Ignore for Mimi's Blog
+venv/
 .DS_Store
-Thumbs.db
-*.log
-.env
-.vscode/
-.idea/
+*.pyc
+__pycache__/
